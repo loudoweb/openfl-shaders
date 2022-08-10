@@ -22,7 +22,7 @@ class Difference extends GraphicsShader
 		}
 
 		vec3 blendDifference(vec3 base, vec3 blend, float opacity) {
-			return (blendDifference(base, blend) * opacity + base * (1.0 - opacity));
+			return (blendDifference(base, blend) + base * (1.0 - opacity));
 		}
 		
 		void main(void) {

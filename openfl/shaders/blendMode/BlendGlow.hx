@@ -33,7 +33,7 @@ class BlendGlow extends GraphicsShader
 		}
 
 		vec3 blendGlow(vec3 base, vec3 blend, float opacity) {
-			return (blendGlow(base, blend) * opacity + base * (1.0 - opacity));
+			return (blendGlow(base, blend) + base * (1.0 - opacity));
 		}
 		
 		void main(void) {

@@ -26,7 +26,7 @@ class ColorBurn extends GraphicsShader
 		}
 
 		vec3 blendColorBurn(vec3 base, vec3 blend, float opacity) {
-			return (blendColorBurn(base, blend) * opacity + base * (1.0 - opacity));
+			return (blendColorBurn(base, blend) + base * (1.0 - opacity));
 		}
 		
 		void main(void) {
