@@ -1,4 +1,4 @@
-package openfl.shaders;
+package openfl.shaders.blendMode;
 
 import openfl.display.BitmapData;
 import openfl.display.GraphicsShader;
@@ -26,7 +26,7 @@ class Overlay extends GraphicsShader
 		}
 
 		vec3 blendOverlay(vec3 base, vec3 blend, float opacity) {
-			return (blendOverlay(base, blend) * opacity + base * (1.0 - opacity));
+			return (blendOverlay(base, blend) + base * (1.0 - opacity));
 		}
 		
 		void main(void) {

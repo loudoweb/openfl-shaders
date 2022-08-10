@@ -3,7 +3,7 @@ Shaders for your openfl Sprites
 
 ## Blend Modes
 
-* Overlay `sprite.shader = new openfl.shaders.Overlay(Assets.getBitmapData("foreground.png"));`
+* Overlay `sprite.shader = new openfl.shaders.blendMode.Overlay(Assets.getBitmapData("foreground.png"));`
 
 ## Effects
 
