@@ -4,6 +4,14 @@ Shaders for your openfl Sprites
 ## Blend Modes
 
 * Overlay `sprite.shader = new openfl.shaders.blendMode.Overlay(Assets.getBitmapData("foreground.png"));`
+* Difference
+* Color Dodge
+* Color Burn
+* Glow
+
+## Filters
+
+* Glow
 
 ## Effects
 
@@ -12,14 +20,28 @@ Shaders for your openfl Sprites
 * Film Shader
 * GrayScale
 
+## Animations
+
+
 ## TODO
+
+### blend modes
 
 * ALPHA					
 * DARKEN					
-* DIFFERENCE				
 * ERASE					
 * HARDLIGHT				
 * INVERT					
 * LAYER					
-* LIGHTEN					
+* LIGHTEN		
+
+### Filters
+
+* outline
+
+### animations 
+
+* Erode
+* Dissolve
+* ...
 
