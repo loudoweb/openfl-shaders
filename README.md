@@ -13,6 +13,7 @@ Shaders for your openfl Sprites
 
 * Glow
 * GrayScale
+* outline
 
 ## Effects
 
@@ -37,7 +38,6 @@ Shaders for your openfl Sprites
 
 ### Filters
 
-* outline
 * Blur
 
 ## Effects

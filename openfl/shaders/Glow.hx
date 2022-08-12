@@ -1,11 +1,13 @@
 package openfl.shaders;
 
 import openfl.display.GraphicsShader;
+import openfl.shaders.utils.ShaderUtils;
 import openfl.utils.ByteArray;
 
 /**
  * port from Pixi : https://github.com/pixijs/filters/blob/main/filters/glow/src/glow.frag
  * @author adapted by Loudo
+ * TODO what's filterClamp??
  */
 class Glow extends GraphicsShader 
 {
@@ -97,7 +99,7 @@ class Glow extends GraphicsShader
 	{
 		super();
 		//distance = Math.round(distance);
-		var _color = hex2rgb(color, colorAlpha);
+		var _color = ShaderUtils.hex2rgb(color, colorAlpha);
 		data.glowColor.value = _color;
 		data.distance.value = [distance];
 		//data.quality.value = [quality];
@@ -105,15 +107,5 @@ class Glow extends GraphicsShader
 		data.innerStrength.value = [innerStrength];
         data.outerStrength.value = [outerStrength];        
 	}
-	
-	public function hex2rgb(hex:Int, alpha:Float)
-    {
-        var out = [];
-        out[0] = ((hex >> 16) & 0xFF) / 255;
-        out[1] = ((hex >> 8) & 0xFF) / 255;
-        out[2] = (hex & 0xFF) / 255;
-        out[3] = alpha;
-        return out;
-    }
 	
 }
