@@ -9,14 +9,11 @@ Shaders for your openfl Sprites
 * Color Burn
 * Glow
 
-## Filters
+## Effects
 
 * Glow
 * GrayScale
 * outline
-
-## Effects
-
 * Deuteranopia (color blindness)
 * DotScreen
 * Film Shader
@@ -34,18 +31,20 @@ Shaders for your openfl Sprites
 * HARDLIGHT				
 * INVERT					
 * LAYER					
-* LIGHTEN		
+* LIGHTEN
 
-### Filters
+
+### Effects
 
 * Blur
-
-## Effects
-
-* NormalMap
 * GBA
 * Glitch
 * Pixelate
+
+### Light
+
+* NormalMap
+* PointLight
 
 ### animations 
 
@@ -57,4 +56,9 @@ Shaders for your openfl Sprites
 * Blur swap
 * Bubble
 * ...
+
+### test
+
+* Tilemap
+* outbounds
 
