@@ -1,6 +1,7 @@
 package openfl.shaders;
 
 import openfl.display.GraphicsShader;
+import openfl.filters.ShaderFilter;
 import openfl.shaders.utils.ShaderUtils;
 import openfl.utils.ByteArray;
 
@@ -27,7 +28,7 @@ class Outline extends GraphicsShader
 	const vec4 filterClamp = vec4(0.,0., 20., 20.);
 
 	const float DOUBLE_PI = 3.14159265358979323846264 * 2.;
-	const float ANGLE_STEP = .628318;
+	const float ANGLE_STEP = .628318;//0.1 is better with big outlines
 
 	void main(void) {
 		vec4 ownColor = texture2D(bitmap, openfl_TextureCoordv);
@@ -75,4 +76,16 @@ class Outline extends GraphicsShader
     }
 	*/
 	
+}
+class OutlineFilter extends ShaderFilter{
+	public function new(thickness:Float = 1., color:Int = 0x000000, colorAlpha:Float = 1.)
+	{
+		var _shader = new Outline(thickness, color, colorAlpha);
+		var extension:Int = Math.ceil(thickness);
+		super(_shader);
+		@:privateAccess this.__topExtension = extension;
+		@:privateAccess this.__leftExtension = extension;
+		@:privateAccess this.__rightExtension = extension;
+		@:privateAccess this.__bottomExtension = extension;
+	}
 }
