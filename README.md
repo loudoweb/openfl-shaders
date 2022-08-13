@@ -14,6 +14,16 @@ Blend modes use a BitmapData as a blend texture
 * Hue
 * Saturation
 * Color
+* Exclusion
+* Darken
+* Lighten
+* Vivid Light
+* Hard Light
+* Soft Light
+* Reflect
+* Negation
+* Multiply
+* AlphaMask
 
 ## Effects
 
@@ -34,15 +44,11 @@ Animation can be animated by calling an update method
 
 ## TODO
 
+* use **gl_FragColor** instead of original bitmap texture when possible so all these shaders can be mixed together with colorTransform and filters, etc.
+
 ### blend modes
 
-* ALPHA					
-* DARKEN					
-* ERASE					
-* HARDLIGHT				
-* INVERT					
-* LAYER					
-* LIGHTEN
+* ERASE				
 
 
 ### Effects
@@ -71,5 +77,6 @@ Animation can be animated by calling an update method
 ### test
 
 * Tilemap
+* filters
 * outbounds
 
