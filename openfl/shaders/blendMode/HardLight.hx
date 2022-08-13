@@ -2,15 +2,13 @@ package openfl.shaders.blendMode;
 
 import openfl.display.BitmapData;
 import openfl.display.GraphicsShader;
-import openfl.utils.ByteArray;
 
 /**
  * Blend Mode
  * @author Jamie Owen https://github.com/jamieowen/glsl-blend
  * @author adapted by Loudo
- * TODO add mask ?
  */
-class Screen extends GraphicsShader 
+class HardLight extends GraphicsShader 
 {
 	
 	@:glFragmentSource(
@@ -18,24 +16,27 @@ class Screen extends GraphicsShader
 		
 		uniform sampler2D foreground;
 		
+		float blendOverlay(float base, float blend) {
+			return base<0.5?(2.0*base*blend):(1.0-2.0*(1.0-base)*(1.0-blend));
+		}
+
+		vec3 blendOverlay(vec3 base, vec3 blend) {
+			return vec3(blendOverlay(base.r,blend.r),blendOverlay(base.g,blend.g),blendOverlay(base.b,blend.b));
+		}
 		
-		float blendScreen(float base, float blend) {
-			return 1.0-((1.0-base)*(1.0-blend));
+		vec3 blendHardLight(vec3 base, vec3 blend) {
+			return blendOverlay(blend,base);
 		}
 
-		vec3 blendScreen(vec3 base, vec3 blend) {
-			return vec3(blendScreen(base.r,blend.r),blendScreen(base.g,blend.g),blendScreen(base.b,blend.b));
-		}
-
-		vec3 blendScreen(vec3 base, vec3 blend, float opacity) {
-			return (blendScreen(base, blend) * opacity + base * (1.0 - opacity));
+		vec3 blendHardLight(vec3 base, vec3 blend, float opacity) {
+			return (blendHardLight(base, blend) * opacity + base * (1.0 - opacity));
 		}
 		
 		void main(void) {
 			
 			vec4 bgColor = texture2D(bitmap, openfl_TextureCoordv);
 			vec4 fgColor = texture2D(foreground, openfl_TextureCoordv);
-			vec3 blendedColor = blendScreen(bgColor.rgb, fgColor.rgb, fgColor.a);
+			vec3 blendedColor = blendHardLight(bgColor.rgb, fgColor.rgb, fgColor.a);
 			gl_FragColor = vec4(blendedColor , bgColor.a);
 			gl_FragColor = gl_FragColor * openfl_Alphav;
 		}

@@ -7,6 +7,7 @@ import openfl.display.GraphicsShader;
  * Blend Mode
  * @author Jamie Owen https://github.com/jamieowen/glsl-blend
  * @author adapted by Loudo
+ * //TODO add mask
  */
 class BlendGlow extends GraphicsShader 
 {
