@@ -83,9 +83,9 @@ class OutlineFilter extends ShaderFilter{
 		var _shader = new Outline(thickness, color, colorAlpha);
 		var extension:Int = Math.ceil(thickness);
 		super(_shader);
-		@:privateAccess this.__topExtension = extension;
-		@:privateAccess this.__leftExtension = extension;
-		@:privateAccess this.__rightExtension = extension;
-		@:privateAccess this.__bottomExtension = extension;
+		__topExtension = extension;
+		__leftExtension = extension;
+		__rightExtension = extension;
+		__bottomExtension = extension;
 	}
 }
