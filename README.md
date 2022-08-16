@@ -91,3 +91,7 @@ Finally, here are the openfl internal variables:
 	```
 You should also use `#pragma header` in the header of your shader to help openfl injects its internal variables. And then `#pragma body` in the top of your main function, to let openfl calculate its stuffs (e.g: colorTrans
 ).
+
+Some bugs you may encounter:
+	* Floating-point suffix unsupported prior to GLSL ES 3.00 => Just remove the f at the end of float numbers.
+	* You need to use constant values in your for loop instructions
