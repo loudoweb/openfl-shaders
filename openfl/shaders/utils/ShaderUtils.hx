@@ -17,4 +17,18 @@ class ShaderUtils
         return out;
     }
 	
+	static public function toFixed(f:Float, decimal:Int):String
+	{
+		var precision:Int = Std.int(Math.pow(10, decimal));
+		var p = Math.round(f * precision);
+		var f2 = p / precision;
+		var str = Std.string(f2);
+		if (str.indexOf('.') == -1 )
+		{
+			return str + ".0";
+		}else{
+			return str;
+		}
+	}
+	
 }

@@ -1,8 +1,9 @@
 package openfl.shaders;
 
 import openfl.display.GraphicsShader;
-import openfl.shaders.utils.ShaderUtils;
-import openfl.utils.ByteArray;
+import openfl.filters.ShaderFilter;
+using StringTools;
+using openfl.shaders.utils.ShaderUtils;
 
 /**
  * port from Pixi : https://github.com/pixijs/filters/blob/main/filters/glow/src/glow.frag
@@ -16,7 +17,6 @@ class Glow extends GraphicsShader
 		"#pragma header
 		
 		uniform float distance;
-		uniform float quality;
 		
 		uniform float outerStrength;
 		uniform float innerStrength;
@@ -29,15 +29,15 @@ class Glow extends GraphicsShader
 
 		const float PI = 3.14159265358979323846264;
 		
-		//__ANGLE_STEP_SIZE__ => (1 / quality / distance).toFixed(7)
-		const float ANGLE_STEP_SIZE = min((1. / .1 / 10.), PI * 2.0);
+		const float ANGLE_STEP_SIZE = min(__ANGLE_STEP_SIZE__, PI * 2.0);
 		const float ANGLE_STEP_NUM = ceil(PI * 2. / ANGLE_STEP_SIZE);
-		const float MAX_TOTAL_ALPHA = ANGLE_STEP_NUM * 10. * (10. + 1.0) / 2.0;
-
+		
+		
 
 		void main(void) {
 			vec2 px = vec2(1.0 / openfl_TextureSize.x, 1.0 / openfl_TextureSize.y);
 
+			float max_total_alpha = ANGLE_STEP_NUM * distance * (distance + 1.0) / 2.0;
 			float totalAlpha = 0.0;
 			
 			vec2 direction;
@@ -60,7 +60,7 @@ class Glow extends GraphicsShader
 			
 			curColor = texture2D(bitmap, openfl_TextureCoordv);
 
-			float alphaRatio = (totalAlpha / MAX_TOTAL_ALPHA);
+			float alphaRatio = (totalAlpha / max_total_alpha);
 
 			float innerGlowAlpha = (1.0 - alphaRatio) * innerStrength * curColor.a;
 			float innerGlowStrength = min(1.0, innerGlowAlpha);
@@ -85,27 +85,58 @@ class Glow extends GraphicsShader
 		
 		"
 	)
-
+	
+	inline public function setDistance(dist:Float):Float
+	{
+		dist = Math.round(dist);
+		data.distance.value = [dist];
+		return dist;
+	}
+	
 	/**
-	 *  Glow shader. Pixi Port.
+	 *  Glow shader.
 	 * @param	color The color of the glow.
-	 * @param	distance The distance of the glow. Make it 2 times more for resolution=2.  It can't be changed after filter creation. Maximum 100.
-	 * @param	quality A number between 0 and 1 that describes the quality of the glow.  The higher the number the less performant.
+	 * @param	distance The distance of the glow. Make it 2 times more for resolution=2. Maximum 100.
+	 * @param	quality A number between 0 and 1 that describes the quality of the glow.  The higher the number the less performant. This can't be changed after. If you plan to animate the distance, set a quality that matches the biggest distance you use.
 	 * @param	knockout Toggle to hide the contents and only show glow.
 	 * @param	innerStrength The strength of the glow inward from the edge of the sprite.
 	 * @param	outerStrength The strength of the glow outward from the edge of the sprite.
 	 */
-	public function new(color:Int = 0xffffff, colorAlpha:Float = 1.0, distance:Float = 10.0, quality:Float = 0.1, knockout:Bool = false, innerStrength:Float = .0, outerStrength:Float = 4.) 
+	public function new(color:Int = 0xffffff, colorAlpha:Float = 1.0, distance:Float = 10, quality:Float = 0.1, knockout:Bool = false, innerStrength:Float = .0, outerStrength:Float = 4.) 
 	{
 		super();
-		//distance = Math.round(distance);
-		var _color = ShaderUtils.hex2rgb(color, colorAlpha);
+		distance = setDistance(distance);
+		//__glFragmentSource = __glFragmentSource.replace("__DIST__", distance.toFixed(0));
+		__glFragmentSource = __glFragmentSource.replace("__ANGLE_STEP_SIZE__", (1 / quality / distance).toFixed(7));
+				
+		var _color = color.hex2rgb(colorAlpha);
 		data.glowColor.value = _color;
-		data.distance.value = [distance];
-		//data.quality.value = [quality];
         data.knockout.value = [knockout];
 		data.innerStrength.value = [innerStrength];
-        data.outerStrength.value = [outerStrength];        
+        data.outerStrength.value = [outerStrength];   
+		
 	}
 	
+}
+/**
+	 *  Glow shader.
+	 * @param	color The color of the glow.
+	 * @param	distance The distance of the glow. Make it 2 times more for resolution=2. Maximum 100.
+	 * @param	quality A number between 0 and 1 that describes the quality of the glow.  The higher the number the less performant. This can't be changed after. If you plan to animate the distance, beware that quality may not match.
+	 * @param	knockout Toggle to hide the contents and only show glow.
+	 * @param	innerStrength The strength of the glow inward from the edge of the sprite.
+	 * @param	outerStrength The strength of the glow outward from the edge of the sprite.
+	 * @param	extension By default, the filter set the value of distance. But if you plan to animate the distance, you may need to set a bigger value here.
+	 */
+class GlowFilter extends ShaderFilter{
+	public function new(color:Int = 0xffffff, colorAlpha:Float = 1., distance:Float = 10, quality:Float = 0.1, knockout:Bool = false, innerStrength:Float = .0, outerStrength:Float = 4., extension:Int = 0)
+	{
+		var _shader = new Glow(color, colorAlpha, distance, quality, knockout, innerStrength, outerStrength);
+		var _extension:Int = extension == 0 ? Math.ceil(distance*1.2) : extension;
+		super(_shader);
+		__topExtension = _extension;
+		__leftExtension = _extension;
+		__rightExtension = _extension;
+		__bottomExtension = _extension;
+	}
 }
