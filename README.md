@@ -77,6 +77,4 @@ Animation can be animated by calling an update method
 ### test
 
 * Tilemap
-* filters
-* outbounds
 
