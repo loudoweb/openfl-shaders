@@ -2,23 +2,24 @@ package openfl.shaders;
 
 import openfl.display.GraphicsShader;
 import openfl.filters.ShaderFilter;
-import openfl.shaders.utils.ShaderUtils;
-import openfl.utils.ByteArray;
+using openfl.shaders.utils.ShaderUtils;
+using StringTools;
 
 /**
+ * Outline shader.
  * Port from Pixi https://github.com/pixijs/filters/blob/main/filters/outline/src/outline.frag
  * @author adapted by loudo
  * TODO what's filterClamp??
- * TODO make ANGLE_STEP a quality parameter. => The quality of the outline from `0` to `1`, using a higher quality setting will result in slower performance and more accuracy.
  */
 class Outline extends GraphicsShader 
 {
 	
+	inline public static var DOUBLE_PI:Float = 3.14159265358979323846264 * 2.;
 	 /** The minimum number of samples for rendering outline. */
-    public static var MIN_SAMPLES:Int = 1;
+    inline public static var MIN_SAMPLES:Int = 1;
 
     /** The maximum number of samples for rendering outline. */
-    public static var MAX_SAMPLES:Int = 100;
+    inline public static var MAX_SAMPLES:Int = 100;
 	
 	@:glFragmentSource("
 	#pragma header
@@ -28,7 +29,7 @@ class Outline extends GraphicsShader
 	const vec4 filterClamp = vec4(0.,0., 20., 20.);
 
 	const float DOUBLE_PI = 3.14159265358979323846264 * 2.;
-	const float ANGLE_STEP = .628318;//0.1 is better with big outlines
+	const float ANGLE_STEP = __ANGLE_STEP__;
 
 	void main(void) {
 		vec4 ownColor = texture2D(bitmap, openfl_TextureCoordv);
@@ -50,37 +51,36 @@ class Outline extends GraphicsShader
 	
 	
 	")
-	 /**
-	  * 
-	  * @param	thickness The tickness of the outline. Make it 2 times more for resolution 2
-	  * @param	color The color of the outline.
-	  * @param	colorAlpha The alpha of the outline.
-	  */
-	public function new(thickness:Float = 1., color:Int = 0x000000, colorAlpha:Float = 1.)
+	/**
+	* Outline Shader.
+	* @param	thickness The tickness of the outline. Make it 2 times more for resolution 2
+	* @param	color The color of the outline.
+	* @param	colorAlpha The alpha of the outline.
+	* @param	quality between 0 and 1. Higher is better but less performant. Can't be changed after, so if you plan to change the thickness, set the quality that works best with the higher thickness.
+	*/
+	public function new(thickness:Float = 1., color:Int = 0x000000, colorAlpha:Float = 1., quality:Float = 0.1)
 	{
 		super();
 		
+		__glFragmentSource = __glFragmentSource.replace("__ANGLE_STEP__", (DOUBLE_PI / (Math.max(quality * MAX_SAMPLES, MIN_SAMPLES))).toFixed(7));
+		
 		data.thickness.value = [thickness, thickness];
-		var _color = ShaderUtils.hex2rgb(color, colorAlpha);
+		var _color = color.hex2rgb(colorAlpha);
 		data.outlineColor.value = _color;
 	}
-	/*
-	private static getAngleStep(quality: number): string
-    {
-        const samples =  Math.max(
-            quality * OutlineFilter.MAX_SAMPLES,
-            OutlineFilter.MIN_SAMPLES,
-        );
-
-        return (Math.PI * 2 / samples).toFixed(7);
-    }
-	*/
 	
 }
+/**
+* Outline Shader.
+* @param	thickness The tickness of the outline. Make it 2 times more for resolution 2
+* @param	color The color of the outline.
+* @param	colorAlpha The alpha of the outline.
+* @param	quality between 0 and 1. Higher is better but less performant. Can't be changed after, so if you plan to change the thickness, set the quality that works best with the higher thickness.
+*/
 class OutlineFilter extends ShaderFilter{
-	public function new(thickness:Float = 1., color:Int = 0x000000, colorAlpha:Float = 1.)
+	public function new(thickness:Float = 1., color:Int = 0x000000, colorAlpha:Float = 1., quality:Float = 0.1)
 	{
-		var _shader = new Outline(thickness, color, colorAlpha);
+		var _shader = new Outline(thickness, color, colorAlpha, quality);
 		var extension:Int = Math.ceil(thickness);
 		super(_shader);
 		__topExtension = extension;

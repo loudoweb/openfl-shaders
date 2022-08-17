@@ -6,6 +6,7 @@ using StringTools;
 using openfl.shaders.utils.ShaderUtils;
 
 /**
+ * Glow shader
  * port from Pixi : https://github.com/pixijs/filters/blob/main/filters/glow/src/glow.frag
  * @author adapted by Loudo
  * TODO what's filterClamp??
@@ -94,14 +95,14 @@ class Glow extends GraphicsShader
 	}
 	
 	/**
-	 *  Glow shader.
-	 * @param	color The color of the glow.
-	 * @param	distance The distance of the glow. Make it 2 times more for resolution=2. Maximum 100.
-	 * @param	quality A number between 0 and 1 that describes the quality of the glow.  The higher the number the less performant. This can't be changed after. If you plan to animate the distance, set a quality that matches the biggest distance you use.
-	 * @param	knockout Toggle to hide the contents and only show glow.
-	 * @param	innerStrength The strength of the glow inward from the edge of the sprite.
-	 * @param	outerStrength The strength of the glow outward from the edge of the sprite.
-	 */
+	*  Glow shader.
+	* @param	color The color of the glow.
+	* @param	distance The distance of the glow. Make it 2 times more for resolution=2. Maximum 100.
+	* @param	quality A number between 0 and 1 that describes the quality of the glow.  The higher the number the less performant. This can't be changed after. If you plan to animate the distance, set a quality that matches the biggest distance you use.
+	* @param	knockout Toggle to hide the contents and only show glow.
+	* @param	innerStrength The strength of the glow inward from the edge of the sprite.
+	* @param	outerStrength The strength of the glow outward from the edge of the sprite.
+	*/
 	public function new(color:Int = 0xffffff, colorAlpha:Float = 1.0, distance:Float = 10, quality:Float = 0.1, knockout:Bool = false, innerStrength:Float = .0, outerStrength:Float = 4.) 
 	{
 		super();
@@ -119,15 +120,15 @@ class Glow extends GraphicsShader
 	
 }
 /**
-	 *  Glow shader.
-	 * @param	color The color of the glow.
-	 * @param	distance The distance of the glow. Make it 2 times more for resolution=2. Maximum 100.
-	 * @param	quality A number between 0 and 1 that describes the quality of the glow.  The higher the number the less performant. This can't be changed after. If you plan to animate the distance, beware that quality may not match.
-	 * @param	knockout Toggle to hide the contents and only show glow.
-	 * @param	innerStrength The strength of the glow inward from the edge of the sprite.
-	 * @param	outerStrength The strength of the glow outward from the edge of the sprite.
-	 * @param	extension By default, the filter set the value of distance. But if you plan to animate the distance, you may need to set a bigger value here.
-	 */
+*  Glow shader.
+* @param	color The color of the glow.
+* @param	distance The distance of the glow. Make it 2 times more for resolution=2. Maximum 100.
+* @param	quality A number between 0 and 1 that describes the quality of the glow.  The higher the number the less performant. This can't be changed after. If you plan to animate the distance, beware that quality may not match.
+* @param	knockout Toggle to hide the contents and only show glow.
+* @param	innerStrength The strength of the glow inward from the edge of the sprite.
+* @param	outerStrength The strength of the glow outward from the edge of the sprite.
+* @param	extension By default, the filter set the value of distance. But if you plan to animate the distance, you may need to set a bigger value here.
+*/
 class GlowFilter extends ShaderFilter{
 	public function new(color:Int = 0xffffff, colorAlpha:Float = 1., distance:Float = 10, quality:Float = 0.1, knockout:Bool = false, innerStrength:Float = .0, outerStrength:Float = 4., extension:Int = 0)
 	{

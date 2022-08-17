@@ -83,15 +83,18 @@ Animation can be animated by calling an update method
 
 To help make shaders to OpenFl. First if you want to port a shader, check the license (this repo is MIT, but we can still use other free license as soon as we specify it in the shader comment). Then please note that we are using glsl (version 120 I guess).
 Finally, here are the openfl internal variables:
+	
 	```haxe
 	varying vec2 openfl_TextureCoordv;//could be vTextureCoord in other shaders
 	uniform vec2 openfl_TextureSize;//
 	uniform sampler2D bitmap;//usually you should use the resulting gl_FragColor, but if needed replace the main sampler2D by bitmap
 	varying float openfl_Alphav;//multiply FragColor by this to use your sprite.alpha value.
 	```
+	
 You should also use `#pragma header` in the header of your shader to help openfl injects its internal variables. And then `#pragma body` in the top of your main function, to let openfl calculate its stuffs (e.g: colorTrans
 ).
 
 Some bugs you may encounter:
+	
 	* Floating-point suffix unsupported prior to GLSL ES 3.00 => Just remove the f at the end of float numbers.
 	* You need to use constant values in your for loop instructions
