@@ -1,8 +1,6 @@
 package openfl.shaders.animation;
 
-import motion.Actuate;
 import openfl.display.GraphicsShader;
-import openfl.utils.ByteArray;
 
 /**
  * Swell Animation
