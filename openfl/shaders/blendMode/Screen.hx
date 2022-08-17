@@ -5,7 +5,7 @@ import openfl.display.GraphicsShader;
 import openfl.utils.ByteArray;
 
 /**
- * Blend Mode
+ * Blend Mode : Multiply the inverse of base and blend colors. Produces lighter color.
  * @author Jamie Owen https://github.com/jamieowen/glsl-blend
  * @author adapted by Loudo
  * TODO add mask ?

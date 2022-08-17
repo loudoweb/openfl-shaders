@@ -4,7 +4,7 @@ import openfl.display.BitmapData;
 import openfl.display.GraphicsShader;
 
 /**
- * Blend Mode
+ * Blend Mode : Multiply or screen the color. Produces lighter color if blend color is less than 50%.
  * @author Jamie Owen https://github.com/jamieowen/glsl-blend
  * @author adapted by Loudo
  */

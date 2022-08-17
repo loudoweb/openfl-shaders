@@ -3,7 +3,7 @@ import openfl.display.BitmapData;
 import openfl.display.GraphicsShader;
 
 /**
- * Creates a result color with the luminance and saturation of the base color and the hue of the blend color.
+ * Replaces the hue of the base color by the hue of the blend color.
  * @author hsv convertion from https://newbedev.com/from-rgb-to-hsv-in-opengl-glsl
  * @author Loudo
  */

@@ -5,7 +5,7 @@ import openfl.display.GraphicsShader;
 import openfl.utils.ByteArray;
 
 /**
- * Blend Mode
+ * Blend Mode : Multiply base color and blend color. Produces darker color.
  * @author Jamie Owen https://github.com/jamieowen/glsl-blend
  * @author adapted by Loudo
  */

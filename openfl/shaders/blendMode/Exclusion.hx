@@ -4,7 +4,7 @@ import openfl.display.BitmapData;
 import openfl.display.GraphicsShader;
 
 /**
- * Blend Mode
+ * Blend Mode : Similar to Difference with lower contrast.
  * @author Jamie Owen https://github.com/jamieowen/glsl-blend
  * @author adapted by Loudo
  * //TODO add mask

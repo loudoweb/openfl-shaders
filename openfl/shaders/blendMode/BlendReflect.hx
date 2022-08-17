@@ -5,7 +5,7 @@ import openfl.display.GraphicsShader;
 import openfl.utils.ByteArray;
 
 /**
- * Blend Mode
+ * Blend Mode : Blend layer reflects on Base layer.
  * @author Jamie Owen https://github.com/jamieowen/glsl-blend
  * @author adapted by Loudo
  */
@@ -45,6 +45,7 @@ class BlendReflect extends GraphicsShader
 	public function new(foreground:BitmapData) 
 	{
 		super();
+		trace(glFragmentSource);
 		data.foreground.input = foreground;
 		
 	}

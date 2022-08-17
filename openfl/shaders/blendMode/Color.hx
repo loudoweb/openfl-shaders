@@ -3,7 +3,7 @@ import openfl.display.BitmapData;
 import openfl.display.GraphicsShader;
 
 /**
- * Creates a result color with the luminance of the base color and the hue and saturation of the blend color. This preserves the gray levels in the image and is useful for coloring monochrome images and for tinting color images.
+ * Replaces the hue and saturation of the base color by the ones of the blend color. Useful for tinting color images.
  * @author hsv convertion from https://newbedev.com/from-rgb-to-hsv-in-opengl-glsl
  * @author Loudo
  */

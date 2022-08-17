@@ -4,7 +4,7 @@ import openfl.display.BitmapData;
 import openfl.display.GraphicsShader;
 
 /**
- * Blend Mode
+ * Blend Mode : Increase or decrease contrast when blend color is lighter than 50% grey
  * @author Jamie Owen https://github.com/jamieowen/glsl-blend
  * @author adapted by Loudo
  */

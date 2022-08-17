@@ -4,7 +4,7 @@ import openfl.display.BitmapData;
 import openfl.display.GraphicsShader;
 
 /**
- * Blend Mode
+ * Blend Mode : darkens the base color and increase contrast between base and blend colors.
  * @author Jamie Owen https://github.com/jamieowen/glsl-blend
  * @author adapted by Loudo
  */
