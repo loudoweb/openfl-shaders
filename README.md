@@ -31,7 +31,7 @@ Various effects
 
 * Glow
 * GrayScale
-* outline
+* Outline
 * Deuteranopia (color blindness)
 * DotScreen
 * Film Shader
@@ -40,6 +40,10 @@ Various effects
 ## Animations
 
 Animation can be animated by calling an update method
+
+* Electric (animated blue noise): LICENSE CC-BY-SA 3.0
+* Shaker
+* Swell (animated underwater?)
 
 
 ## TODO
